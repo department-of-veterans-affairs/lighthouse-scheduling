@@ -1,0 +1,5 @@
+====
+
+    ${Ansi.BLUE}Lighthouse ${Ansi.BOLD}${Ansi.ORANGE} Scheduling ${Ansi.NORMAL}${Ansi.BLUE}${application.version}${Ansi.NORMAL}
+
+====
