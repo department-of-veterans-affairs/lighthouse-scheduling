@@ -1,9 +1,11 @@
 package gov.va.api.lighthouse.scheduling;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
+import gov.va.api.health.r4.api.bundle.BundleLink;
 import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Appointment;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import lombok.SneakyThrows;
@@ -50,6 +52,35 @@ public class SchedulingController {
       @RequestParam(value = "location", required = false) String location) {
     Appointment appointment = buildAppointment("93", patient, location);
     return Appointment.Bundle.builder()
+        .link(
+            Arrays.asList(
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.first)
+                    .url(
+                        "http://localhost:8060/r4/Appointment?patient="
+                            + patient
+                            + "&location="
+                            + location
+                            + "&page=1&count=1")
+                    .build(),
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.self)
+                    .url(
+                        "http://localhost:8060/r4/Appointment?patient="
+                            + patient
+                            + "&location="
+                            + location
+                            + "&page=1&count=1")
+                    .build(),
+                BundleLink.builder()
+                    .relation(BundleLink.LinkRelation.last)
+                    .url(
+                        "http://localhost:8060/r4/Appointment?patient="
+                            + patient
+                            + "&location="
+                            + location
+                            + "&page=1&count=1")
+                    .build()))
         .resourceType("Bundle")
         .type(AbstractBundle.BundleType.searchset)
         .total(1)

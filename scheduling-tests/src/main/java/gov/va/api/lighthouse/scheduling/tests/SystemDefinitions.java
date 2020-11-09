@@ -4,13 +4,16 @@ import gov.va.api.health.sentinel.Environment;
 import gov.va.api.health.sentinel.SentinelProperties;
 import gov.va.api.health.sentinel.ServiceDefinition;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 
-public class SystemDefinitions {
+@UtilityClass
+class SystemDefinitions {
 
   private static SystemDefinition local() {
     String url = "http://localhost";
     return SystemDefinition.builder()
         .scheduling(serviceDefinition("scheduling", url, 8060, null, "/r4/"))
+        .testIds(testIds())
         .build();
   }
 
@@ -18,6 +21,7 @@ public class SystemDefinitions {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
         .scheduling(serviceDefinition("scheduling", url, 8060, null, "/r4/"))
+        .testIds(testIds())
         .build();
   }
 
@@ -41,5 +45,9 @@ public class SystemDefinitions {
         throw new IllegalArgumentException(
             "Unsupported sentinel environment: " + Environment.get());
     }
+  }
+
+  private static TestIds testIds() {
+    return TestIds.builder().appointmentid("1").patientId("3").locationId("5").build();
   }
 }

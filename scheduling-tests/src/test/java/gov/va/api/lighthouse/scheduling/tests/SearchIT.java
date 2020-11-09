@@ -1,5 +1,6 @@
 package gov.va.api.lighthouse.scheduling.tests;
 
+import static gov.va.api.lighthouse.scheduling.tests.SystemDefinitions.systemDefinition;
 import static gov.va.api.lighthouse.scheduling.tests.TestClients.getFhirTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,18 +13,22 @@ public class SearchIT {
 
   @Test
   public void readAppointmentIdTest() {
+    final String appointmentId = systemDefinition().getTestIds().getAppointmentid();
     TestClient btc = getFhirTestClient();
     String apiPath = btc.service().urlWithApiPath();
-    ExpectedResponse response = btc.get(apiPath + "Appointment/1");
+    ExpectedResponse response = btc.get(apiPath + "Appointment/" + appointmentId);
     response.expect(200).expectValid(Appointment.class);
     assertThat(response.response()).isNotNull();
   }
 
   @Test
   public void readAppointmentSearchParametersTest() {
+    final String patientId = systemDefinition().getTestIds().getPatientId();
+    final String locationId = systemDefinition().getTestIds().getLocationId();
     TestClient btc = getFhirTestClient();
     String apiPath = btc.service().urlWithApiPath();
-    ExpectedResponse response = btc.get(apiPath + "Appointment?patient=3&location=4");
+    ExpectedResponse response =
+        btc.get(apiPath + "Appointment?patient=" + patientId + "&location=" + locationId);
     response.expect(200).expectValid(Appointment.Bundle.class);
     assertThat(response.response()).isNotNull();
   }

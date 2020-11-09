@@ -8,5 +8,8 @@ import lombok.Value;
 @Value
 @Builder
 public final class SystemDefinition {
+
   @NonNull ServiceDefinition scheduling;
+
+  @NonNull TestIds testIds;
 }
