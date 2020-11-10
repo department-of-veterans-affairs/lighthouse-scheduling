@@ -30,7 +30,7 @@ public class SearchIT {
     final String appointmentId = systemDefinition().testIds().appointment();
     final String patientId = systemDefinition().testIds().patient();
     checkResponse("Appointment?_id=" + appointmentId, Appointment.Bundle.class);
-    checkResponse("Appointment?_identifier=" + appointmentId, Appointment.Bundle.class);
+    checkResponse("Appointment?identifier=" + appointmentId, Appointment.Bundle.class);
     checkResponse("Appointment?patient=" + patientId, Appointment.Bundle.class);
   }
 }
