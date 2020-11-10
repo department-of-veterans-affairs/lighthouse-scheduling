@@ -43,7 +43,7 @@ public class SchedulingController {
                     .actor(
                         Reference.builder()
                             .reference(basepath + "r4/Patient/" + patientID)
-                            .display(patientID)
+                            .display("JOHN Q VETERAN")
                             .build())
                     .status(Appointment.ParticipationStatus.tentative)
                     .build(),
@@ -51,7 +51,7 @@ public class SchedulingController {
                     .actor(
                         Reference.builder()
                             .reference(basepath + "r4/Location/" + locationID)
-                            .display(locationID)
+                            .display("ORLANDO VAMC")
                             .build())
                     .status(Appointment.ParticipationStatus.accepted)
                     .build()))
