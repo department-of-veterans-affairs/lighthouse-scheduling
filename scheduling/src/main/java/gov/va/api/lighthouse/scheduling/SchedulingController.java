@@ -104,7 +104,7 @@ public class SchedulingController {
   }
 
   @Builder
-  public class StubbedQueryStringBuilder {
+  public static class StubbedQueryStringBuilder {
     private Optional<String> id;
     private Optional<String> pat;
     private Optional<String> identifier;
