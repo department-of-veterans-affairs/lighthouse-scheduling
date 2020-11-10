@@ -24,7 +24,7 @@ public class SchedulingController {
 
   private final String basepath;
 
-  SchedulingController(@Value("${scheduling.base-url:http://localhost:8060/}") String basepath) {
+  SchedulingController(@Value("${scheduling.base-url}") String basepath) {
     this.basepath = basepath;
   }
 
