@@ -22,13 +22,18 @@ public class SearchIT {
   }
 
   @Test
-  public void searchByPatientAndLocationParametersTest() {
+  public void searchByParametersTest() {
+    final String appointmentId = systemDefinition().testIds().appointment();
     final String patientId = systemDefinition().testIds().patient();
     final String locationId = systemDefinition().testIds().location();
     TestClient btc = r4Scheduling();
     String apiPath = btc.service().urlWithApiPath();
     ExpectedResponse response =
-        btc.get(apiPath + "Appointment?patient=" + patientId + "&location=" + locationId);
+        btc.get(apiPath + "Appointment?_id=" + appointmentId + " &patient=" + patientId);
+    response.expect(200).expectValid(Appointment.Bundle.class);
+    assertThat(response.response()).isNotNull();
+    response =
+        btc.get(apiPath + "Appointment?identifier=" + appointmentId + "&location=" + locationId);
     response.expect(200).expectValid(Appointment.Bundle.class);
     assertThat(response.response()).isNotNull();
   }

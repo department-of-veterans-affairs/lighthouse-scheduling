@@ -20,7 +20,7 @@ class SystemDefinitions {
   private static SystemDefinition qa() {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .scheduling(serviceDefinition("scheduling", url, 8060, null, "/r4/"))
+        .scheduling(serviceDefinition("scheduling", url, 443, null, "/r4/"))
         .testIds(testIds())
         .build();
   }

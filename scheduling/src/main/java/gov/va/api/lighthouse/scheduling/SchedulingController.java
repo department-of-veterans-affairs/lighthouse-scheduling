@@ -51,7 +51,7 @@ public class SchedulingController {
   /** Read appointment by ID. */
   @GetMapping(value = "/{id}")
   Appointment readAppointmentId(@PathVariable("id") String id) {
-    return buildAppointment(id, "109", "1010");
+    return buildAppointment("I2-APP", "I2-PAT", "I2-LOC");
   }
 
   /** Get appointment by search parameters. */
@@ -60,9 +60,8 @@ public class SchedulingController {
       @RequestParam(value = "_id", defaultValue = "I2-APP", required = false) String id,
       @RequestParam(value = "patient", defaultValue = "I2-PAT", required = false) String patient,
       @RequestParam(value = "location", defaultValue = "I2-LOC", required = false) String location,
-      @RequestParam(value = "identifier", defaultValue = "I2-IDF", required = false)
-          String identifier) {
-    Appointment appointment = buildAppointment(id, patient, location);
+      @RequestParam(value = "identifier", required = false) String identifier) {
+    Appointment appointment = buildAppointment("I2-APP", "I2-PAT", "I2-LOC");
     return Appointment.Bundle.builder()
         .link(
             Arrays.asList(
@@ -70,27 +69,27 @@ public class SchedulingController {
                     .relation(BundleLink.LinkRelation.first)
                     .url(
                         "http://localhost:8060/r4/Appointment?patient="
-                            + patient
+                            + "I2-PAT"
                             + "&location="
-                            + location
+                            + "I2-LOC"
                             + "&page=1&count=1")
                     .build(),
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
                         "http://localhost:8060/r4/Appointment?patient="
-                            + patient
+                            + "I2-PAT"
                             + "&location="
-                            + location
+                            + "I2-LOC"
                             + "&page=1&count=1")
                     .build(),
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.last)
                     .url(
                         "http://localhost:8060/r4/Appointment?patient="
-                            + patient
+                            + "I2-PAT"
                             + "&location="
-                            + location
+                            + "I2-LOC"
                             + "&page=1&count=1")
                     .build()))
         .resourceType("Bundle")
