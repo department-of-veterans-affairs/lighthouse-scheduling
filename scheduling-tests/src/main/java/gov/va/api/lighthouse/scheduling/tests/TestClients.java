@@ -10,9 +10,9 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class TestClients {
-  TestClient getFhirTestClient() {
+  TestClient r4Scheduling() {
     return FhirTestClient.builder()
-        .service(systemDefinition().getScheduling())
+        .service(systemDefinition().scheduling())
         .contentTypes(List.of("application/json", "application/fhir+json"))
         .mapper(JacksonConfig::createMapper)
         .errorResponseEqualityCheck(

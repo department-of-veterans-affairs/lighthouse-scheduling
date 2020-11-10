@@ -7,7 +7,7 @@ import lombok.Value;
 @Value
 @Builder
 public final class TestIds {
-  @NonNull String appointmentid;
-  @NonNull String patientId;
-  @NonNull String locationId;
+  @NonNull String appointment;
+  @NonNull String patient;
+  @NonNull String location;
 }
