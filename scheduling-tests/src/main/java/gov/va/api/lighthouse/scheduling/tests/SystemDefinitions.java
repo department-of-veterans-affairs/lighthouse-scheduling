@@ -20,7 +20,7 @@ class SystemDefinitions {
   private static SystemDefinition qa() {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .scheduling(serviceDefinition("scheduling", url, 443, null, "/r4/"))
+        .scheduling(serviceDefinition("scheduling", url, 443, null, "/scheduling/r4/"))
         .testIds(testIds())
         .build();
   }
@@ -48,6 +48,10 @@ class SystemDefinitions {
   }
 
   private static TestIds testIds() {
-    return TestIds.builder().appointment("1").patient("3").location("5").build();
+    return TestIds.builder()
+        .appointment("I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109")
+        .patient("I2-6ABSWFRZ531QKNR6IIRKYHA5RY029108")
+        .location("I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128")
+        .build();
   }
 }

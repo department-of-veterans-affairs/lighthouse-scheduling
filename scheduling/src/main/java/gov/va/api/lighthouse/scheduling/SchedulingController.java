@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class SchedulingController {
 
   @SneakyThrows
-  Appointment buildAppointment(String appointmentID, String patientID, String locationID) {
+  Appointment buildAppointment() {
+    String appointmentID = "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109";
+    String patientID = "I2-6ABSWFRZ531QKNR6IIRKYHA5RY029108";
+    String locationID = "I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128";
     return Appointment.builder()
         .identifier(Collections.singletonList(Identifier.builder().id(appointmentID).build()))
         .id(appointmentID)
@@ -51,45 +54,51 @@ public class SchedulingController {
   /** Read appointment by ID. */
   @GetMapping(value = "/{id}")
   Appointment readAppointmentId(@PathVariable("id") String id) {
-    return buildAppointment("I2-APP", "I2-PAT", "I2-LOC");
+    return buildAppointment();
   }
 
   /** Get appointment by search parameters. */
   @GetMapping(value = "")
   Appointment.Bundle readAppointmentSearchParameters(
-      @RequestParam(value = "_id", defaultValue = "I2-APP", required = false) String id,
-      @RequestParam(value = "patient", defaultValue = "I2-PAT", required = false) String patient,
-      @RequestParam(value = "location", defaultValue = "I2-LOC", required = false) String location,
+      @RequestParam(
+              value = "_id",
+              defaultValue = "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109",
+              required = false)
+          String id,
+      @RequestParam(
+              value = "patient",
+              defaultValue = "I2-6ABSWFRZ531QKNR6IIRKYHA5RY029108",
+              required = false)
+          String patient,
+      @RequestParam(
+              value = "location",
+              defaultValue = "I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128",
+              required = false)
+          String location,
       @RequestParam(value = "identifier", required = false) String identifier) {
-    Appointment appointment = buildAppointment("I2-APP", "I2-PAT", "I2-LOC");
+    Appointment appointment = buildAppointment();
     return Appointment.Bundle.builder()
         .link(
             Arrays.asList(
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.first)
                     .url(
-                        "http://localhost:8060/r4/Appointment?patient="
-                            + "I2-PAT"
-                            + "&location="
-                            + "I2-LOC"
+                        "http://localhost:8060/r4/Appointment?identifier="
+                            + "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109"
                             + "&page=1&count=1")
                     .build(),
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.self)
                     .url(
-                        "http://localhost:8060/r4/Appointment?patient="
-                            + "I2-PAT"
-                            + "&location="
-                            + "I2-LOC"
+                        "http://localhost:8060/r4/Appointment?identifier="
+                            + "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109"
                             + "&page=1&count=1")
                     .build(),
                 BundleLink.builder()
                     .relation(BundleLink.LinkRelation.last)
                     .url(
-                        "http://localhost:8060/r4/Appointment?patient="
-                            + "I2-PAT"
-                            + "&location="
-                            + "I2-LOC"
+                        "http://localhost:8060/r4/Appointment?identifier="
+                            + "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109"
                             + "&page=1&count=1")
                     .build()))
         .resourceType("Bundle")

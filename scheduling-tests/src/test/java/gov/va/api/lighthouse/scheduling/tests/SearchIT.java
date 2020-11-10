@@ -11,14 +11,18 @@ import org.junit.jupiter.api.Test;
 
 public class SearchIT {
 
+  public void checkResponse(String endpoint, Class expectedClass) {
+    TestClient btc = r4Scheduling();
+    String apiPath = btc.service().urlWithApiPath();
+    ExpectedResponse response = btc.get(apiPath + endpoint);
+    response.expect(200).expectValid(expectedClass);
+    assertThat(response.response()).isNotNull();
+  }
+
   @Test
   public void searchByAppointmentIdTest() {
     final String appointmentId = systemDefinition().testIds().appointment();
-    TestClient btc = r4Scheduling();
-    String apiPath = btc.service().urlWithApiPath();
-    ExpectedResponse response = btc.get(apiPath + "Appointment/" + appointmentId);
-    response.expect(200).expectValid(Appointment.class);
-    assertThat(response.response()).isNotNull();
+    checkResponse("Appointment/" + appointmentId, Appointment.class);
   }
 
   @Test
@@ -26,15 +30,10 @@ public class SearchIT {
     final String appointmentId = systemDefinition().testIds().appointment();
     final String patientId = systemDefinition().testIds().patient();
     final String locationId = systemDefinition().testIds().location();
-    TestClient btc = r4Scheduling();
-    String apiPath = btc.service().urlWithApiPath();
-    ExpectedResponse response =
-        btc.get(apiPath + "Appointment?_id=" + appointmentId + " &patient=" + patientId);
-    response.expect(200).expectValid(Appointment.Bundle.class);
-    assertThat(response.response()).isNotNull();
-    response =
-        btc.get(apiPath + "Appointment?identifier=" + appointmentId + "&location=" + locationId);
-    response.expect(200).expectValid(Appointment.Bundle.class);
-    assertThat(response.response()).isNotNull();
+    checkResponse(
+        "Appointment?_id=" + appointmentId + "&patient=" + patientId, Appointment.Bundle.class);
+    checkResponse(
+        "Appointment?identifier=" + appointmentId + "&location=" + locationId,
+        Appointment.Bundle.class);
   }
 }
