@@ -25,15 +25,24 @@ public class SchedulingController {
   Appointment buildAppointment(String appointmentID, String patientID, String locationID) {
     return Appointment.builder()
         .identifier(Collections.singletonList(Identifier.builder().id(appointmentID).build()))
+        .id(appointmentID)
         .status(Appointment.AppointmentStatus.booked)
         .participant(
             List.of(
                 Appointment.Participant.builder()
-                    .actor(Reference.builder().id(patientID).type("Patient").build())
+                    .actor(
+                        Reference.builder()
+                            .reference("Patient/" + patientID)
+                            .display(patientID)
+                            .build())
                     .status(Appointment.ParticipationStatus.tentative)
                     .build(),
                 Appointment.Participant.builder()
-                    .actor(Reference.builder().id(locationID).type("Location").build())
+                    .actor(
+                        Reference.builder()
+                            .reference("Location/" + locationID)
+                            .display(locationID)
+                            .build())
                     .status(Appointment.ParticipationStatus.accepted)
                     .build()))
         .build();
@@ -46,11 +55,14 @@ public class SchedulingController {
   }
 
   /** Get appointment by search parameters. */
-  @GetMapping(params = {"patient", "location"})
+  @GetMapping(value = "")
   Appointment.Bundle readAppointmentSearchParameters(
-      @RequestParam(value = "patient", required = false) String patient,
-      @RequestParam(value = "location", required = false) String location) {
-    Appointment appointment = buildAppointment("93", patient, location);
+      @RequestParam(value = "_id", defaultValue = "I2-APP", required = false) String id,
+      @RequestParam(value = "patient", defaultValue = "I2-PAT", required = false) String patient,
+      @RequestParam(value = "location", defaultValue = "I2-LOC", required = false) String location,
+      @RequestParam(value = "identifier", defaultValue = "I2-IDF", required = false)
+          String identifier) {
+    Appointment appointment = buildAppointment(id, patient, location);
     return Appointment.Bundle.builder()
         .link(
             Arrays.asList(

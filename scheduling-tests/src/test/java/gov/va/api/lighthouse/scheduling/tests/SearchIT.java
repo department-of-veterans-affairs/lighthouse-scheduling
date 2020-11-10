@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class SearchIT {
 
   @Test
-  public void readAppointmentIdTest() {
+  public void searchByAppointmentIdTest() {
     final String appointmentId = systemDefinition().testIds().appointment();
     TestClient btc = r4Scheduling();
     String apiPath = btc.service().urlWithApiPath();
@@ -22,7 +22,7 @@ public class SearchIT {
   }
 
   @Test
-  public void readAppointmentSearchParametersTest() {
+  public void searchByPatientAndLocationParametersTest() {
     final String patientId = systemDefinition().testIds().patient();
     final String locationId = systemDefinition().testIds().location();
     TestClient btc = r4Scheduling();

@@ -48,6 +48,6 @@ class SystemDefinitions {
   }
 
   private static TestIds testIds() {
-    return TestIds.builder().appointmentid("1").patientId("3").locationId("5").build();
+    return TestIds.builder().appointment("1").patient("3").location("5").build();
   }
 }
