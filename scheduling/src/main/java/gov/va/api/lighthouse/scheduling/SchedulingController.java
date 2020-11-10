@@ -8,6 +8,8 @@ import gov.va.api.health.r4.api.resources.Appointment;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import lombok.Builder;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class SchedulingController {
   @SneakyThrows
   Appointment buildAppointment() {
     String appointmentID = "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109";
-    String patientID = "I2-6ABSWFRZ531QKNR6IIRKYHA5RY029108";
+    String patientID = "1092387456V321456";
     String locationID = "I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128";
     return Appointment.builder()
         .identifier(Collections.singletonList(Identifier.builder().id(appointmentID).build()))
@@ -65,16 +67,8 @@ public class SchedulingController {
               defaultValue = "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109",
               required = false)
           String id,
-      @RequestParam(
-              value = "patient",
-              defaultValue = "I2-6ABSWFRZ531QKNR6IIRKYHA5RY029108",
-              required = false)
+      @RequestParam(value = "patient", defaultValue = "1092387456V321456", required = false)
           String patient,
-      @RequestParam(
-              value = "location",
-              defaultValue = "I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128",
-              required = false)
-          String location,
       @RequestParam(value = "identifier", required = false) String identifier) {
     Appointment appointment = buildAppointment();
     return Appointment.Bundle.builder()
@@ -107,5 +101,24 @@ public class SchedulingController {
         .entry(List.of(Appointment.Entry.builder().resource(appointment).build()))
         .id("93")
         .build();
+  }
+
+  @Builder
+  public class StubbedQueryStringBuilder {
+    private Optional<String> id;
+    private Optional<String> pat;
+    private Optional<String> identifier;
+
+    /** Builds a query string representation based on the query params provided. */
+    public String toStubbedQueryString() {
+      StringBuilder queryString = new StringBuilder("Appointment");
+      id.ifPresent(s -> queryString.append("_id=").append(s).append("&"));
+      pat.ifPresent(s -> queryString.append("patient=").append(s).append("&"));
+      identifier.ifPresent(s -> queryString.append("identifier=").append(s).append("&"));
+      if (queryString.charAt(queryString.length() - 1) == '&') {
+        queryString.setLength(queryString.length() - 1);
+      }
+      return queryString.toString();
+    }
   }
 }

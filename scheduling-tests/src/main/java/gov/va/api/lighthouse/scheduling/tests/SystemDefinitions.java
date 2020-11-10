@@ -50,7 +50,7 @@ class SystemDefinitions {
   private static TestIds testIds() {
     return TestIds.builder()
         .appointment("I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109")
-        .patient("I2-6ABSWFRZ531QKNR6IIRKYHA5RY029108")
+        .patient("1092387456V321456")
         .location("I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128")
         .build();
   }
