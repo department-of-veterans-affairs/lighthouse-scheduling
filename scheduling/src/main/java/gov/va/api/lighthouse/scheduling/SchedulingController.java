@@ -32,11 +32,9 @@ public class SchedulingController {
 
   @SneakyThrows
   Appointment buildAppointment() {
-    String appointmentID = "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109";
-    String patientID = "1092387456V321456";
     return Appointment.builder()
         .resourceType("Appointment")
-        .id(appointmentID)
+        .id("I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109")
         .identifier(
             List.of(
                 Identifier.builder().id("Sta3n").value("510").build(),
@@ -55,7 +53,7 @@ public class SchedulingController {
                 Appointment.Participant.builder()
                     .actor(
                         Reference.builder()
-                            .reference(basepath + "r4/Patient/" + patientID)
+                            .reference(basepath + "r4/Patient/1092387456V321456")
                             .display("JOHN Q VETERAN")
                             .build())
                     .status(Appointment.ParticipationStatus.tentative)
@@ -71,8 +69,7 @@ public class SchedulingController {
                 Appointment.Participant.builder()
                     .actor(
                         Reference.builder()
-                            .reference(
-                                basepath + "r4/Practitioner/I2-9QPSWFRZ530PLNR6IIRKYHA5RY574081")
+                            .reference(basepath + "r4/Practitioner/1092387456V321456")
                             .display("MICHAEL C SMITH")
                             .build())
                     .status(Appointment.ParticipationStatus.accepted)
