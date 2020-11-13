@@ -43,7 +43,7 @@ public class SchedulingController {
                 Identifier.builder().id("VisitSID").value("3000196609731").build(),
                 Identifier.builder().id("AppointmentTypeSID").value("15091").build()))
         .status(Appointment.AppointmentStatus.booked)
-        .serviceType(List.of(CodeableConcept.builder().id("3").build()))
+        .serviceType(List.of(CodeableConcept.builder().id("3").text("C").build()))
         .appointmentType(CodeableConcept.builder().id("15091").text("FOLLOWUP").build())
         .start("2020-02-07T13:00:00.000+02:00")
         .end("2020-02-07T14:00:00.000+02:00")
