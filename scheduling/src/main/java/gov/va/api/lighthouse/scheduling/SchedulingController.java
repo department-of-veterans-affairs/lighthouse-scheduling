@@ -2,6 +2,8 @@ package gov.va.api.lighthouse.scheduling;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
+import gov.va.api.health.r4.api.datatypes.CodeableConcept;
+import gov.va.api.health.r4.api.datatypes.Identifier;
 import gov.va.api.health.r4.api.elements.Reference;
 import gov.va.api.health.r4.api.resources.Appointment;
 import java.util.Arrays;
@@ -30,19 +32,28 @@ public class SchedulingController {
 
   @SneakyThrows
   Appointment buildAppointment() {
-    String appointmentID = "I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109";
-    String patientID = "1092387456V321456";
-    String locationID = "I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128";
     return Appointment.builder()
         .resourceType("Appointment")
-        .id(appointmentID)
+        .id("I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109")
+        .identifier(
+            List.of(
+                Identifier.builder().id("Sta3n").value("510").build(),
+                Identifier.builder().id("VisitSID").value("3000196609731").build(),
+                Identifier.builder().id("AppointmentTypeSID").value("15091").build()))
         .status(Appointment.AppointmentStatus.booked)
+        .serviceType(List.of(CodeableConcept.builder().id("3").text("C").build()))
+        .appointmentType(CodeableConcept.builder().id("15091").text("FOLLOWUP").build())
+        .start("2020-02-07T13:00:00.000+02:00")
+        .end("2020-02-07T14:00:00.000+02:00")
+        .minutesDuration(60)
+        .created("2020-08-23")
+        .comment("6 mo f/u April; rtn fasting")
         .participant(
             List.of(
                 Appointment.Participant.builder()
                     .actor(
                         Reference.builder()
-                            .reference(basepath + "r4/Patient/" + patientID)
+                            .reference(basepath + "r4/Patient/1092387456V321456")
                             .display("JOHN Q VETERAN")
                             .build())
                     .status(Appointment.ParticipationStatus.tentative)
@@ -50,8 +61,16 @@ public class SchedulingController {
                 Appointment.Participant.builder()
                     .actor(
                         Reference.builder()
-                            .reference(basepath + "r4/Location/" + locationID)
+                            .reference(basepath + "r4/Location/I2-9QPSWFRZ530PLNR6IIRKYHA5RY031128")
                             .display("ORLANDO VAMC")
+                            .build())
+                    .status(Appointment.ParticipationStatus.accepted)
+                    .build(),
+                Appointment.Participant.builder()
+                    .actor(
+                        Reference.builder()
+                            .reference(basepath + "r4/Practitioner/1092387456V321456")
+                            .display("MICHAEL C SMITH")
                             .build())
                     .status(Appointment.ParticipationStatus.accepted)
                     .build()))
