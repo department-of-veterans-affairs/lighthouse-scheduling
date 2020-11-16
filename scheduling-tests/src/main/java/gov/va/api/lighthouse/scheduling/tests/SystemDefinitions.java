@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 class SystemDefinitions {
 
   private static SystemDefinition lab() {
-    String url = "https://blue.lab.lighthouse.va.gov";
+    String url = "https://sandbox-api.va.gov";
     return SystemDefinition.builder()
         .scheduling(serviceDefinition("scheduling", url, 443, null, "/scheduling/r4/"))
         .testIds(testIds())
