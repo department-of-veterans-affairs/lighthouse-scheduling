@@ -15,13 +15,13 @@ if [ -z "${SCHEDULING_URL:-}" ]; then SCHEDULING_URL=https://$K8S_LOAD_BALANCER;
 
 SYSTEM_PROPERTIES="-Dsentinel=$SENTINEL_ENV -Dsentinel.scheduling.url=${SCHEDULING_URL}"
 
-[ -n "$SCHEDULING_API_PATH" ] && addToSystemProperties "sentinel.scheduling.api-path" "$SCHEDULING_API_PATH"
+if [ -n "${SCHEDULING_API_PATH:-}" ]; then  addToSystemProperties "sentinel.scheduling.api-path" "$SCHEDULING_API_PATH"; fi
 
 java-tests \
   --module-name "scheduling-tests" \
   --regression-test-pattern ".*IT\$" \
   --smoke-test-pattern ".*IT\$" \
-  ${SYSTEM_PROPERTIES[@]} \
+  $SYSTEM_PROPERTIES \
   $@
 
 exit $?
