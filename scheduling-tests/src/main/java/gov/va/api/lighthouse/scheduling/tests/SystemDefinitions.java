@@ -12,7 +12,7 @@ class SystemDefinitions {
   private static SystemDefinition lab() {
     String url = "https://sandbox-api.va.gov";
     return SystemDefinition.builder()
-        .scheduling(serviceDefinition("scheduling", url, 443, null, "/scheduling/r4/"))
+        .scheduling(serviceDefinition("scheduling", url, 443, null, "/services/fhir/v0/r4/"))
         .testIds(testIds())
         .build();
   }
