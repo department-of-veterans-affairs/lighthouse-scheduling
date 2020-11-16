@@ -8,6 +8,15 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 class SystemDefinitions {
+
+  private static SystemDefinition lab() {
+    String url = "https://blue.lab.lighthouse.va.gov";
+    return SystemDefinition.builder()
+        .scheduling(serviceDefinition("scheduling", url, 443, null, "/scheduling/r4/"))
+        .testIds(testIds())
+        .build();
+  }
+
   private static SystemDefinition local() {
     String url = "http://localhost";
     return SystemDefinition.builder()
@@ -50,6 +59,8 @@ class SystemDefinitions {
         return qa();
       case STAGING_LAB:
         return stagingLab();
+      case LAB:
+        return lab();
       default:
         throw new IllegalArgumentException(
             "Unsupported sentinel environment: " + Environment.get());
