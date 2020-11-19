@@ -1,5 +1,7 @@
 package gov.va.api.lighthouse.scheduling.tests;
 
+import static gov.va.api.health.sentinel.SentinelProperties.magicAccessToken;
+
 import gov.va.api.health.sentinel.Environment;
 import gov.va.api.health.sentinel.SentinelProperties;
 import gov.va.api.health.sentinel.ServiceDefinition;
@@ -12,7 +14,8 @@ class SystemDefinitions {
   private static SystemDefinition lab() {
     String url = "https://sandbox-api.va.gov";
     return SystemDefinition.builder()
-        .scheduling(serviceDefinition("scheduling", url, 443, null, "/services/fhir/v0/r4/"))
+        .scheduling(
+            serviceDefinition("scheduling", url, 443, magicAccessToken(), "/services/fhir/v0/r4/"))
         .testIds(testIds())
         .build();
   }
@@ -28,19 +31,20 @@ class SystemDefinitions {
   private static SystemDefinition qa() {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .scheduling(serviceDefinition("scheduling", url, 443, null, "/fhir/v0/r4/"))
+        .scheduling(serviceDefinition("scheduling", url, 443, magicAccessToken(), "/fhir/v0/r4/"))
         .testIds(testIds())
         .build();
   }
 
   private static ServiceDefinition serviceDefinition(
       String name, String url, int port, String accessToken, String apiPath) {
-    return ServiceDefinition.builder()
-        .url(SentinelProperties.optionUrl(name, url))
-        .port(port)
+    return SentinelProperties.forName(name)
+        .defaultUrl(url)
+        .defaultPort(port)
+        .defaultApiPath(apiPath)
         .accessToken(() -> Optional.ofNullable(accessToken))
-        .apiPath(SentinelProperties.optionApiPath(name, apiPath))
-        .build();
+        .build()
+        .serviceDefinition();
   }
 
   private static SystemDefinition stagingLab() {
