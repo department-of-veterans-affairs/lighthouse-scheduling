@@ -50,7 +50,7 @@ class SystemDefinitions {
   private static SystemDefinition stagingLab() {
     String url = "https://blue.staging-lab.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .scheduling(serviceDefinition("scheduling", url, 443, null, "/fhir/v0/r4/"))
+        .scheduling(serviceDefinition("scheduling", url, 443, magicAccessToken(), "/fhir/v0/r4/"))
         .testIds(testIds())
         .build();
   }
