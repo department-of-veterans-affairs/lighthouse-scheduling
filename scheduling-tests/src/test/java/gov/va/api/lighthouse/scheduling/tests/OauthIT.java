@@ -67,7 +67,7 @@ public class OauthIT {
   private void test(int status, Class<?> expected, String token, String path, String... params) {
     log.info(
         "Oauth: Expect {} ({}) for {} {}",
-        expected.getName(),
+        expected.getSimpleName(),
         status,
         path,
         Arrays.toString(params));
