@@ -46,23 +46,25 @@ public class OauthIT {
     assumeEnvironmentIn(Environment.STAGING_LAB, Environment.LAB);
     String token = exchangeToken();
     // Valid Token
-    test(200, Appointment.Bundle.class, token, "r4/Appointment?patient={icn}", ids.oauthPatient());
+    test(200, Appointment.Bundle.class, token, "Appointment?patient={icn}", ids.oauthPatient());
     // Invalid Token
-    test(401, OperationOutcome.class, "NOPE", "r4/Appointment?patient={icn}", ids.oauthPatient());
+    test(401, OperationOutcome.class, "NOPE", "Appointment?patient={icn}", ids.oauthPatient());
     // Invalid Resource for Scopes
-    test(403, OperationOutcome.class, token, "r4/Observation?patient={icn}", ids.oauthPatient());
+    test(403, OperationOutcome.class, token, "Observation?patient={icn}", ids.oauthPatient());
   }
 
   private void test(int status, Class<?> expected, String token, String path, String... params) {
+    var requestPath = def.apiPath() + path;
     log.info(
         "Oauth: Expect {} ({}) for {} {}",
         expected.getSimpleName(),
         status,
-        path,
+        requestPath,
         Arrays.toString(params));
     // We have to rebuild the request spec.
     // Kong does not like multiple auth headers.
     // This prevents two Authorization headers from resulting in a 400.
+
     RequestSpecification request =
         RestAssured.given()
             .baseUri(def.url())
@@ -71,7 +73,7 @@ public class OauthIT {
             .headers(Map.of("Authorization", "Bearer " + token))
             .contentType("application/json")
             .accept("application/json");
-    ExpectedResponse response = ExpectedResponse.of(request.request(Method.GET, path, params));
+    ExpectedResponse response = ExpectedResponse.of(request.request(Method.GET, requestPath, params));
     response.expect(status).expectValid(expected);
   }
 }
