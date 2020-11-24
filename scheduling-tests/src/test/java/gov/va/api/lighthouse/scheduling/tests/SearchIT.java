@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class SearchIT {
 
-  public void checkResponse(String endpoint, Class expectedClass) {
+  public void checkResponse(String endpoint, Class<?> expectedClass) {
     TestClient btc = r4Scheduling();
     String apiPath = btc.service().urlWithApiPath();
     log.info("Making request to: {}", apiPath + endpoint);
