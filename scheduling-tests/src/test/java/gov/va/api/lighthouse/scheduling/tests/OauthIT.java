@@ -64,7 +64,6 @@ public class OauthIT {
     // We have to rebuild the request spec.
     // Kong does not like multiple auth headers.
     // This prevents two Authorization headers from resulting in a 400.
-
     RequestSpecification request =
         RestAssured.given()
             .baseUri(def.url())
@@ -73,7 +72,9 @@ public class OauthIT {
             .headers(Map.of("Authorization", "Bearer " + token))
             .contentType("application/json")
             .accept("application/json");
-    ExpectedResponse response = ExpectedResponse.of(request.request(Method.GET, requestPath, params));
+    ExpectedResponse response =
+        ExpectedResponse.of(request.request(Method.GET, requestPath, params));
+
     response.expect(status).expectValid(expected);
   }
 }
