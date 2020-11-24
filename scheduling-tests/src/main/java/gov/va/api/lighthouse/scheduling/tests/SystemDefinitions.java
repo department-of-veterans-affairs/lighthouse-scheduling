@@ -75,6 +75,8 @@ class SystemDefinitions {
     return TestIds.builder()
         .appointment("I2-5XYSWFRZ637QKNR6IIRKYHA5RY000109")
         .patient("1011537977V693883")
+        // Frankenpatient
+        .oauthPatient("1017283180V801730")
         .build();
   }
 }

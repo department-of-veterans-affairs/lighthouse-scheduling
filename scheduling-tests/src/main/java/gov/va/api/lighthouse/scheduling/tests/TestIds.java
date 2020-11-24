@@ -9,4 +9,5 @@ import lombok.Value;
 public final class TestIds {
   @NonNull String appointment;
   @NonNull String patient;
+  @NonNull String oauthPatient;
 }
