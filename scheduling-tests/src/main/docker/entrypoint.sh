@@ -26,7 +26,7 @@ main() {
   java-tests \
     --module-name "scheduling-tests" \
     --regression-test-pattern ".*IT\$" \
-    --smoke-test-pattern ".*IT\$" \
+    --smoke-test-pattern ".*SearchIT\$" \
     $SYSTEM_PROPERTIES \
     $@
 

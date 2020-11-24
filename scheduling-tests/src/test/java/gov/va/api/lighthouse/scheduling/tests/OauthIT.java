@@ -24,7 +24,8 @@ public class OauthIT {
 
   private String exchangeToken() {
     SystemScopeOauthRobot.Configuration config =
-        OauthRobotProperties.forSystemScopes()
+        OauthRobotProperties.withProperties()
+            .forSystemScopes()
             // Loading ClientId, ClientSecret, Audience, and TokenUrl will be done via properties
             .defaultScopes(List.of("system/Appointment.read"))
             .build()
