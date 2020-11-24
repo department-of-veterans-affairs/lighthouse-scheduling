@@ -40,11 +40,11 @@ addToSystemProperties() {
 }
 
 setUpOauthTest() {
-  if [ -n "${OAUTH_AUD:-}" ]; then addToSystemProperties "va-oauth-robot.aud" "${OAUTH_AUD}"; fi
-  if [ -n "${OAUTH_TOKEN_URL:-}" ]; then addToSystemProperties "va-oauth-robot.token-url" "${OAUTH_TOKEN_URL}"; fi
-  if [ -n "${OAUTH_SCOPES:-}" ]; then addToSystemProperties "va-oauth-robot.scopes-csv" "${OAUTH_SCOPES}"; fi
-  addToSystemProperties "va-oauth-robot.client-id" "${OAUTH_CLIENT_ID}"
-  addToSystemProperties "va-oauth-robot.client-secret" "${OAUTH_CLIENT_SECRET}"
+  if [ -n "${OAUTH_AUD:-}" ]; then addToSystemProperties "system-oauth-robot.aud" "${OAUTH_AUD}"; fi
+  if [ -n "${OAUTH_TOKEN_URL:-}" ]; then addToSystemProperties "system-oauth-robot.token-url" "${OAUTH_TOKEN_URL}"; fi
+  if [ -n "${OAUTH_SCOPES:-}" ]; then addToSystemProperties "system-oauth-robot.scopes-csv" "${OAUTH_SCOPES}"; fi
+  addToSystemProperties "system-oauth-robot.client-id" "${OAUTH_CLIENT_ID}"
+  addToSystemProperties "system-oauth-robot.client-secret" "${OAUTH_CLIENT_SECRET}"
 }
 
 # =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=

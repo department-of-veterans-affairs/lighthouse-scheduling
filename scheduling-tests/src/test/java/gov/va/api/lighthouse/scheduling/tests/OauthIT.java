@@ -7,7 +7,7 @@ import gov.va.api.health.r4.api.resources.Appointment;
 import gov.va.api.health.r4.api.resources.OperationOutcome;
 import gov.va.api.health.sentinel.Environment;
 import gov.va.api.health.sentinel.OauthRobotProperties;
-import gov.va.api.health.sentinel.SystemScopeOauthRobot;
+import gov.va.api.health.sentinel.SystemOauthRobot;
 import gov.va.api.health.sentinel.TestClient;
 import gov.va.api.health.sentinel.TokenExchange;
 import java.util.Arrays;
@@ -23,14 +23,14 @@ public class OauthIT {
   TestIds ids = SystemDefinitions.systemDefinition().testIds();
 
   private String exchangeToken() {
-    SystemScopeOauthRobot.Configuration config =
-        OauthRobotProperties.withProperties()
-            .forSystemScopes()
+    SystemOauthRobot.Configuration config =
+        OauthRobotProperties.usingSystemProperties()
+            .forSystemOauth()
             // Loading ClientId, ClientSecret, Audience, and TokenUrl will be done via properties
             .defaultScopes(List.of("system/Appointment.read"))
             .build()
-            .oauthSystemScopeConfig();
-    TokenExchange token = SystemScopeOauthRobot.builder().config(config).build().token();
+            .systemOauthConfig();
+    TokenExchange token = SystemOauthRobot.builder().config(config).build().token();
     if (token.isError()) {
       fail("Failed to get token result from oauth robot.");
     }
@@ -66,7 +66,7 @@ public class OauthIT {
 
   private void test(int status, Class<?> expected, String token, String path, String... params) {
     log.info(
-        "OAUTH: Expect {} ({}) for {} {}",
+        "Oauth: Expect {} ({}) for {} {}",
         expected.getName(),
         status,
         path,
