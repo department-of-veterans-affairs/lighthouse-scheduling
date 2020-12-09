@@ -1,4 +1,4 @@
-package gov.va.api.lighthouse.scheduling;
+package gov.va.api.lighthouse.scheduling.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
