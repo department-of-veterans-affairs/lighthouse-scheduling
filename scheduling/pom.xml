@@ -12,6 +12,7 @@
   <version>0.0.13-SNAPSHOT</version>
   <packaging>jar</packaging>
   <properties>
+    <data-query.version>3.0.71</data-query.version>
     <docker.imageName>lighthouse-${project.artifactId}</docker.imageName>
     <fhir-resources.version>5.0.15</fhir-resources.version>
   </properties>
@@ -34,6 +35,12 @@
       <groupId>gov.va.api.health</groupId>
       <artifactId>sentinel</artifactId>
       <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>gov.va.api.health</groupId>
+      <artifactId>data-query</artifactId>
+      <version>${data-query.version}</version>
+      <classifier>library</classifier>
     </dependency>
   </dependencies>
   <build>

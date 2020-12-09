@@ -1,0 +1,36 @@
+{
+    "cdwId" : "1600021515962",
+    "status" : "PC",
+    "cancelationReason" : "OTHER",
+    "serviceCategory" : "SURGERY",
+    "serviceType" : "OTOLARYNGOLOGY/ENT",
+    "specialty" : null,
+    "appointmentType" : "WALKIN",
+    "description" : "Walk-In Visit",
+    "start" : "2020-11-25T08:00:00",
+    "end" : "2020-11-25T08:20:00",
+    "minutesDuration" : 20,
+    "created" : "2020-11-24",
+    "comment" : "LS 11/20/2020 PID 11/25/2020 5-DAY RTC PER DR STEELE F2F FOR 40-MIN OK TO SCHEDULE @0800 FOR 40-MIN PER DR STEELE TO SEE RESIDENT",
+    "basedOn" : null,
+    "participant" : [
+        {
+            "actor" : {
+                "type" : "Location",
+                "reference" : "800157972",
+                "name" : "SAC ENT RESIDENT 2"
+            },
+            "required" : "required",
+            "status" : "accepted"
+        },
+        {
+            "actor" : {
+                "type" : "Patient",
+                "reference" : "802095909",
+                "display" : "PATIENT,FHIRAPPTT JR"
+            },
+            "required" : "required",
+            "status" : "accepted"
+        }
+    ]
+}
