@@ -16,7 +16,7 @@ public class SearchIT {
   public void checkResponse(String endpoint, Class<?> expectedClass) {
     TestClient btc = r4Scheduling();
     String apiPath = btc.service().urlWithApiPath();
-    log.info("Making request to: {}", apiPath + endpoint);
+    log.info("Verify {} is {} (200)", apiPath + endpoint, expectedClass.getSimpleName());
     ExpectedResponse response = btc.get(apiPath + endpoint);
     response.expect(200).expectValid(expectedClass);
     assertThat(response.response()).isNotNull();

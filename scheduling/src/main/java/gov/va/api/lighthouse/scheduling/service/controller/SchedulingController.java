@@ -1,4 +1,4 @@
-package gov.va.api.lighthouse.scheduling;
+package gov.va.api.lighthouse.scheduling.service.controller;
 
 import gov.va.api.health.r4.api.bundle.AbstractBundle;
 import gov.va.api.health.r4.api.bundle.BundleLink;
